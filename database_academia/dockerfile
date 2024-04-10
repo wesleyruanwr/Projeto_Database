@@ -1,0 +1,12 @@
+FROM mysql:latest
+
+ENV MYSQL_ROOT_PASSWORD=root
+ENV MYSQL_DATABASE=academia
+ENV MYSQL_USER=user
+ENV MYSQL_PASSWORD=password
+
+COPY academia.sql /docker-entrypoint-initdb.d/
+
+EXPOSE 3306
+
+USER root

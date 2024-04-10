@@ -1,0 +1,118 @@
+CREATE DATABASE IF NOT EXISTS ModeloFaculdade;
+USE ModeloFaculdade;
+
+CREATE TABLE IF NOT EXISTS Faculdade (
+    id_faculdade INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Nome VARCHAR(50) NOT NULL,
+    PRIMARY KEY (id_faculdade)
+);
+
+CREATE TABLE IF NOT EXISTS Endereco (
+    CEP BIGINT UNSIGNED NOT NULL,
+    Rua VARCHAR(100),
+    Numero_casa INT,
+    PRIMARY KEY (CEP)
+);
+
+
+CREATE TABLE IF NOT EXISTS Email (
+    id_email INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Endereco_email VARCHAR(100) NOT NULL,
+    PRIMARY KEY (id_email)
+);
+
+
+CREATE TABLE IF NOT EXISTS Funcionario (
+    id_funcionario INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Nome VARCHAR(100) NOT NULL,
+    Salario DECIMAL(10, 2),
+    PRIMARY KEY (id_funcionario)
+);
+
+
+CREATE TABLE IF NOT EXISTS Administrativo (
+    id_funcionario INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_funcionario),
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario)
+);
+
+
+CREATE TABLE IF NOT EXISTS Professor (
+    id_professor INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_funcionario INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_professor),
+    FOREIGN KEY (id_funcionario) REFERENCES Funcionario(id_funcionario)
+);
+
+
+CREATE TABLE IF NOT EXISTS Aluno (
+    Matricula INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    CPF_aluno VARCHAR(11) NOT NULL,
+    Nome VARCHAR(100),
+    Curso VARCHAR(50),
+    Data_nascimento DATE,
+    CEP BIGINT UNSIGNED,
+    id_email  INT UNSIGNED NOT NULL,
+    PRIMARY KEY (Matricula),
+    FOREIGN KEY (CEP) REFERENCES Endereco(CEP),
+    FOREIGN KEY (id_email) REFERENCES Email(id_email)
+);
+
+CREATE TABLE IF NOT EXISTS Materia (
+    id_materia INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Nome VARCHAR(100) NOT NULL,
+    id_professor INT UNSIGNED,
+    PRIMARY KEY (id_materia),
+    FOREIGN KEY (id_professor) REFERENCES Professor(id_professor)
+);
+
+
+
+CREATE TABLE IF NOT EXISTS Semestre (
+    id_semestre INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Numero_semestre INT(2) UNSIGNED NOT NULL,
+    id_materia INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_semestre),
+    FOREIGN KEY (id_materia) REFERENCES Materia(id_materia)
+);
+
+
+CREATE TABLE IF NOT EXISTS Nota (
+    id_nota INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Nota FLOAT,
+    Matricula INT UNSIGNED NOT NULL,
+    id_materia INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_nota),
+    FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula),
+    FOREIGN KEY (id_materia) REFERENCES Materia(id_materia)
+);
+
+
+CREATE TABLE IF NOT EXISTS Historico (
+    id_historico INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    id_materia INT UNSIGNED NOT NULL,
+    Nota FLOAT,
+    Matricula INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_historico),
+    FOREIGN KEY (id_materia) REFERENCES Materia(id_materia),
+    FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula)
+);
+
+
+CREATE TABLE IF NOT EXISTS Filiacao (
+    id_filiacao INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    Nome_mae VARCHAR(100),
+    Nome_pai VARCHAR(50),
+    Matricula INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id_filiacao),
+    FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula)
+);
+
+
+CREATE TABLE IF NOT EXISTS Telefone (
+    Numero_telefone VARCHAR(13) NOT NULL,
+    Matricula INT UNSIGNED NOT NULL,
+    PRIMARY KEY (Numero_telefone),
+    FOREIGN KEY (Matricula) REFERENCES Aluno(Matricula)
+);
+

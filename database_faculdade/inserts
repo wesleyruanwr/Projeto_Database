@@ -1,0 +1,55 @@
+
+INSERT INTO Faculdade (Nome) VALUES
+  ('Universidade Federal'),
+  ('Uninassau'),
+  ('ITA'),
+  ('Unibra'),
+  ('UPE');
+
+INSERT INTO Endereco (CEP, Rua, Numero_casa) VALUES
+  (12345678, 'Rua A', 123),
+  (23456789, 'Avenida B', 456),
+  (34567890, 'Praça C', 789),
+  (45678901, 'Alameda D', 321),
+  (56789012, 'Avenida E', 654);
+
+INSERT INTO Funcionario (Nome, Salario) VALUES
+  ('José Silva', 5000.00),
+  ('Ana Souza', 4500.00),
+  ('Carlos Oliveira', 6000.00),
+  ('Mariana Santos', 4000.00),
+  ('Pedro Costa', 5500.00);
+
+INSERT INTO Professor (id_funcionario) VALUES
+  (1),
+  (2),
+  (3);
+
+INSERT INTO Materia (Nome, id_professor) VALUES 
+('Matemática', 1),
+('História', 2),
+('Ciências', 3),
+('Geografia', 1),
+('Português', 2);
+
+INSERT INTO Email (id_email, Endereco_email) VALUES
+  (1, 'joao@example.com'),
+  (2, 'maria@gmail.com'),
+  (3, 'carlos@outlook.com'),
+  (4, 'ana@yahoo.com'),
+  (5, 'pedro@live.com');
+   
+INSERT INTO Aluno (CPF_aluno, Nome, Curso, Data_nascimento, CEP, id_email) VALUES
+  ('12345678901', 'João Oliveira', 'Engenharia Civil', '1998-03-15', 12345678, 1),
+  ('23456789012', 'Maria Santos', 'Medicina', '1999-07-20', 23456789, 2),
+  ('34567890123', 'Pedro Lima', 'Administração', '2000-01-10', 34567890, 3),
+  ('45678901234', 'Ana Oliveira', 'Direito', '1997-05-25', 45678901, 4),
+  ('56789012345', 'Carla Silva', 'Arquitetura', '1999-11-05', 56789012, 5);
+
+INSERT INTO Nota (Nota, Matricula, id_materia) VALUES 
+(9.0, 1, 1), (8.5, 1, 2), (7.5, 1, 3), (8.0, 1, 4), (9.5, 1, 5),
+(8.0, 2, 1), (7.0, 2, 2), (9.0, 2, 3), (8.5, 2, 4), (7.5, 2, 5),
+(7.5, 3, 1), (8.5, 3, 2), (6.5, 3, 3), (9.0, 3, 4), (8.0, 3, 5),
+(9.0, 4, 1), (8.0, 4, 2), (7.0, 4, 3), (8.5, 4, 4), (9.5, 4, 5),
+(8.5, 5, 1), (9.0, 5, 2), (7.5, 5, 3), (6.5, 5, 4), (8.0, 5, 5);
+

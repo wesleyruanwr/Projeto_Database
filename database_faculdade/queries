@@ -1,0 +1,57 @@
+
+-- QUERIES --
+
+-- QUERIE 1 -- INFOS DE ALUNOS DE MEDICINA
+
+SELECT a.Matricula, a.Nome, a.Curso, e.Endereco_email
+FROM Aluno a
+JOIN Email e ON a.id_email = e.id_email
+WHERE a.Curso = 'Medicina';
+
+
+-- QUERIE 2 -- QUAL MATERIA O PROFESSOR JOSE SILVA ENSINA
+
+SELECT m.Nome
+FROM Materia m
+JOIN Professor p ON m.id_professor = p.id_professor
+JOIN Funcionario f ON p.id_funcionario = f.id_funcionario
+WHERE f.Nome = 'José Silva';
+
+
+-- QUERIE 3 -- QUAIS FUNCIONARIOS SAO PROFESSORES
+
+SELECT Professor.id_professor, Funcionario.Nome 
+FROM Professor
+INNER JOIN Funcionario ON Professor.id_funcionario = Funcionario.id_funcionario;
+
+
+-- QUERIE 4 -- QUAIS ALUNOS TEM MEDIA MAIOR QUE 8
+
+SELECT Aluno.Nome, AVG(Nota) AS Media
+FROM Aluno
+INNER JOIN Nota ON Aluno.Matricula = Nota.Matricula
+GROUP BY Aluno.Matricula
+HAVING AVG(Nota) > 8;
+
+
+
+-- QUERIE 4 -- MEDIA DE NOTAS DE TODAS AS MATERIAS 
+
+SELECT Materia.Nome, AVG(Nota) AS Media
+FROM Materia
+INNER JOIN Nota ON Materia.id_materia = Nota.id_materia
+GROUP BY Materia.Nome
+ORDER BY Media DESC;
+
+-- QUERIE 5 -- MEDIA DE SALARIO DOS PROFESSORES
+
+SELECT AVG(Salario) AS Media_Salario_Professor
+FROM Funcionario f
+JOIN Professor p ON f.id_funcionario = p.id_funcionario;
+
+
+-- QUERIE 6 -- ANIVERSARIANTES DO PROX MES
+
+SELECT Matricula, Nome, Data_nascimento
+FROM Aluno
+WHERE MONTH(Data_nascimento) = MONTH(DATE_ADD(NOW(), INTERVAL 1 MONTH));

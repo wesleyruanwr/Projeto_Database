@@ -1,0 +1,54 @@
+CREATE DATABASE academia;
+USE academia;
+
+
+CREATE TABLE Plano (
+    Tipo VARCHAR(50) PRIMARY KEY,
+    Valor DECIMAL(10, 2) NOT NULL,
+    Duracao INT NOT NULL
+);
+
+
+CREATE TABLE Professor (
+    CPF VARCHAR(11) PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Especializacao VARCHAR(100)
+);
+
+
+CREATE TABLE Unidade (
+    Registro INTEGER PRIMARY KEY AUTO_INCREMENT,
+    Localizacao VARCHAR(200) NOT NULL
+);
+
+
+CREATE TABLE Aluno (
+    CPF VARCHAR(11) PRIMARY KEY,
+    Nome VARCHAR(100) NOT NULL,
+    Telefone VARCHAR(20),
+    Endereco VARCHAR(200),
+    Email VARCHAR(254),
+    Forma_de_Pagamento VARCHAR(50),
+    Unidade_Registro INTEGER,
+    FOREIGN KEY (Unidade_Registro) REFERENCES Unidade(Registro)
+);
+
+
+
+CREATE TABLE Aluno_Plano (
+    CPF_Aluno VARCHAR(11),
+    Tipo_Plano VARCHAR(50),
+    CPF_Professor VARCHAR(11),
+    PRIMARY KEY (CPF_Aluno, Tipo_Plano),
+    FOREIGN KEY (CPF_Aluno) REFERENCES Aluno(CPF),
+    FOREIGN KEY (Tipo_Plano) REFERENCES Plano(Tipo),
+    FOREIGN KEY (CPF_Professor) REFERENCES Professor(CPF)
+);
+
+
+CREATE TABLE Turno_Professor (
+    CPF_Professor VARCHAR(11) PRIMARY KEY,
+    Dia_Semana VARCHAR(20),
+    Horario_Inicio TIME,
+    Horario_Fim TIME
+);

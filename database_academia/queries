@@ -1,0 +1,60 @@
+
+-- QUERIE 1 -- INFORMACOES DE TODOS OS ALUNOS
+
+SELECT a.CPF, a.Nome AS Nome_Aluno, a.Telefone, a.Endereco, a.Email, a.Forma_de_Pagamento, u.Localizacao AS Unidade_Localizacao
+FROM Aluno a
+JOIN Unidade u ON a.Unidade_Registro = u.Registro;
+
+
+-- QUERIE 2 -- INFORMACOES DOS PLANOS DOS ALUNOS E SEUS PROFESSORES
+
+SELECT ap.CPF_Aluno, ap.Tipo_Plano, p.Valor, p.Duracao, pr.Nome AS Nome_Professor, pr.Especializacao
+FROM Aluno_Plano ap
+JOIN Plano p ON ap.Tipo_Plano = p.Tipo
+LEFT JOIN Professor pr ON ap.CPF_Professor = pr.CPF;
+
+
+-- QUERIE 3 -- TURNOS DOS PROFESSORES
+
+SELECT * FROM Turno_Professor;
+
+
+-- QUERIE 4 -- DETALHES DE UM PLANO ESPECIFICO 
+
+SELECT *
+FROM Plano
+WHERE Tipo = 'Intermediário';
+
+
+-- QUERIE 5 -- ALUNOS COM O PLANO PREMIUM E SEU PROFESSOR 
+
+SELECT a.CPF, a.Nome AS Nome_Aluno, p.Tipo AS Tipo_Plano, pr.Nome AS Nome_Professor
+FROM Aluno a
+JOIN Aluno_Plano ap ON a.CPF = ap.CPF_Aluno
+JOIN Plano p ON ap.Tipo_Plano = p.Tipo AND p.Tipo = 'Premium'
+LEFT JOIN Professor pr ON ap.CPF_Professor = pr.CPF;
+
+-- QUERIE 6 -- ALUNOS QUE MORAM EM UMA DETERMINADA RUA E USAM UMA DETERMINADA FORMA DE PAGAMENTO
+
+SELECT a.CPF, a.Nome AS Nome_Aluno, a.Telefone, a.Email, a.Forma_de_Pagamento, u.Localizacao AS Unidade_Localizacao
+FROM Aluno a
+JOIN Unidade u ON a.Unidade_Registro = u.Registro
+WHERE a.Forma_de_Pagamento = 'Cartão de Crédito' AND u.Localizacao = 'Rua A, 123 - Centro';
+
+
+-- QUERIE 7 -- PROFESSORES DISPONIVEIS PARA ENSINAR SEGUNDA FEIRA ORDENADOS POR HORARIO
+
+SELECT tp.CPF_Professor, pr.Nome AS Nome_Professor, tp.Dia_Semana, tp.Horario_Inicio, tp.Horario_Fim
+FROM Turno_Professor tp
+JOIN Professor pr ON tp.CPF_Professor = pr.CPF
+WHERE tp.Dia_Semana = 'Segunda'
+ORDER BY tp.Horario_Inicio;
+
+
+-- QUERIE 8 -- DETALHES DE UM ALUNO E UM PLANO ESPECIFICO POR JOIN
+
+SELECT a.CPF, a.Nome AS Nome_Aluno, ap.Tipo_Plano, p.Valor, p.Duracao
+FROM Aluno a
+LEFT JOIN Aluno_Plano ap ON a.CPF = ap.CPF_Aluno
+LEFT JOIN Plano p ON ap.Tipo_Plano = p.Tipo
+WHERE a.CPF = '98765432100';

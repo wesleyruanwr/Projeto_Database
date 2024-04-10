@@ -1,0 +1,35 @@
+
+INSERT INTO Plano (Tipo, Valor, Duracao) VALUES
+    ('Básico', 50.00, 6),
+    ('Intermediário', 80.00, 12),
+    ('Avançado', 120.00, 12),
+    ('Premium', 200.00, 12);
+
+
+INSERT INTO Professor (CPF, Nome, Especializacao) VALUES
+    ('12345678900', 'João Silva', 'Musculação'),
+    ('23456789012', 'Maria Santos', 'CrossFit'),
+    ('34567890123', 'Pedro Oliveira', 'Yoga');
+
+
+INSERT INTO Unidade (Localizacao) VALUES
+    ('Rua A, 123 - Centro'),
+    ('Avenida X, 456 - Bairro Y'),
+    ('Rua B, 789 - Zona Sul');
+
+
+INSERT INTO Aluno (CPF, Nome, Telefone, Endereco, Email, Forma_de_Pagamento, Unidade_Registro) VALUES
+    ('98765432100', 'Lucas Oliveira', '99999-8888', 'Rua A, 123', 'lucas@email.com', 'Cartão de Crédito', 1),
+    ('87654321098', 'Camila Santos', '98888-7777', 'Avenida X, 456', 'camila@email.com', 'Boleto Bancário', 2),
+    ('76543210987', 'Marcos Pereira', '97777-6666', 'Rua B, 789', 'marcos@email.com', 'Débito Automático', 3);
+
+
+INSERT INTO Aluno_Plano (CPF_Aluno, Tipo_Plano, CPF_Professor) VALUES
+    ('98765432100', 'Intermediário', '23456789012'),
+    ('87654321098', 'Básico', '12345678900'),
+    ('76543210987', 'Premium', '34567890123');
+
+
+INSERT INTO Turno_Professor (CPF_Professor, Dia_Semana, Horario_Inicio, Horario_Fim) VALUES
+    ('12345678900', 'Segunda', '08:00:00', '14:00:00'),
+    ('23456789012', 'Terça', '09:00:00', '17:00:00');
